@@ -19,8 +19,6 @@ func main() {
 		panic(err)
 	}
 
-	secret := "Das ist ein Test"
-
 	aead, err := cipher.NewGCM(block)
 	if err != nil {
 		panic(err)
@@ -31,6 +29,7 @@ func main() {
 	fmt.Printf("Nonce: \"%s\"\n", hex.EncodeToString(nonce))
 
 	// Encrypt
+	secret := "Das ist ein Test"
 	cipherText := aead.Seal(nil, nonce, []byte(secret), nil)
 
 	encodedCipher := hex.EncodeToString(cipherText)
@@ -59,10 +58,7 @@ func main() {
 	}
 	fmt.Printf("Their Part: \"%s\"\n", hex.EncodeToString(theirPart))
 
-	// Now we have two parts split apart with a true random byte slice
-
-	// Reversing the operation
-
+	// Now we have two parts split apart with a true random byte slice. Reversing the operation
 	// Consider adding checksums, length checks...
 	mergedCipherText := make([]byte, len(theirPart))
 
